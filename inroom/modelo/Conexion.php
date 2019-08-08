@@ -21,7 +21,7 @@ class Conexion
             
 			$this->pdo = new PDO("mysql:host={$serverName};dbname={$dbName}",$userName,$pwd);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Se conecto a HR exitosamente!";
+            //echo "Se conecto a HR exitosamente!";
             return $this->pdo; 		        
 		}
 		catch(PDOException $e)
@@ -36,7 +36,7 @@ class Conexion
         try
 		{
             $pdo = null;
-            echo "Se desconectó de HR exitosamente!";
+            //echo "Se desconectó de HR exitosamente!";
             return $pdo; 		        
         }
         catch(PDOException $e)
