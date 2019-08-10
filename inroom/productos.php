@@ -18,6 +18,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="css/vendor.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <!-- DATATABLE -->
     <link href="DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- DATATABLE buttons -->
