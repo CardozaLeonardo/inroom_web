@@ -2,11 +2,11 @@
 
 class Reservacion
 {
-    private $reservacion_id;
+    private $id_reservacio;
     private $num_reserv;
     private $fecha;
-    private $factura_id;
-    private $huesped_id;
+    private $id_factura;
+    private $id_huesped;
     private $estado;
 
     public function __GET($k){ return $this->$k; }
