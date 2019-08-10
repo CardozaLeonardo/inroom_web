@@ -4,15 +4,6 @@
 
    $tipoModEmp = new TipoHabitacionModelo();
 
-   if(isset($_GET['user']))
-   {
-       $userRec = new HabitacionModelo();
-       $user = $userRec->getHabitacion($_GET['user']);
-
-   }else{
-       header('Location: ../inroom_web/inroom');
-   }
-
    
 
 
@@ -24,7 +15,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title> InRoom | Nueva Habitacion </title>
+        <title> InRoom | Nueva Habitación </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -417,34 +408,34 @@
                         <p class="title-description"> Sample form elements </p>
                     </div>
                     <div class="subtitle-block">
-                        <h3 class="subtitle"> Actualizar Habitacion </h3>
+                        <h3 class="subtitle"> Nueva Habitación </h3>
                     </div>
                     <section class="section">
                         <div class="row sameheight-container">
                             <div class="col-md-8">
                                 <div class="card card-block sameheight-item">
                                     <div class="title-block">
-                                        <h3 class="title"> Ingrese los datos </h3>
+                                        <h3 class="title"> Registre una habitación </h3>
                                     </div>
                                     <form role="form" name="nuevaHabitacion" method="POST" action="control/Habitacion.control.php">
-                                        <input name="action" type="hidden" value="2">
-                                        <input name="id_habitacion" type="hidden" value="<?php echo $user->__GET('id_habitacion'); ?>">
+                                        <input name="action" type="hidden" value="1">
                                         <div class="form-group">
-                                            <label class="control-label">Número</label>
-                                            <input value="<?php echo $user->__GET('numero'); ?>" name="numero" type="text" required class="form-control boxed">
+                                            <label class="control-label">Número de habitación</label>
+                                            <input name="numero" type="text" required class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Tipo de Habitacion</label>
+                                            <label class="control-label">Tipo de habitación</label>
                                             <select name="tipoHabitacion" class="form-control">
                                             <?php foreach($tipoModEmp->listarTipoHab() as $r): ?>
                                                 <option value="<?php echo $r->__GET('id_tipoHabitacion'); ?>"><?php echo $r->__GET('descripcion'); ?></option>
                                             <?php endforeach; ?>
                                             </select>
                                         </div>
+
                                        
 
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Actualizar</button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
                                         
                                     </form>
                                 </div>
