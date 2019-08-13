@@ -16,12 +16,13 @@ include_once('../modelo/Habitacion.modelo.php');
     switch($opcion)
     {
         case '1':
+        
            $habitacion->__SET('numero', $_POST['numero']);
            $habitacion->__SET('id_tipoHabitacion', $_POST['descripcion']);
            $habitacion->__SET('estado', 1);
 
            $habitacionMod->crear($habitacion);
-           header('Location: /inroom/habitacion.php');
+           header('Location: /inroom_web/inroom/habitaciones.php');
 
            break;
 
@@ -32,7 +33,7 @@ include_once('../modelo/Habitacion.modelo.php');
            $habitacion->__SET('estado', 2);
 
            $habitacionMod->actualizar($habitacion);
-           header('Location: /inroom/habitaciones.php');
+           header('Location: /inroom_web/inroom/habitaciones.php');
 
            break;
 
@@ -46,5 +47,5 @@ include_once('../modelo/Habitacion.modelo.php');
 if($_GET)
 {
    $habitacionMod->eliminar($_GET['user']);
-   header("Location: /inroom/habitaciones.php");
+   header("Location: inroom_web/inroom/habitaciones.php");
 }
