@@ -574,7 +574,7 @@
         <script src="js/vendor.js"></script>
         <script src="js/app.js"></script>
 
-        <script src="DataTables/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
+ <script src="DataTables/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
         <!-- DATATABLE -->
   <script src="DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
 
