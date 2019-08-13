@@ -31,14 +31,15 @@ class HabitacionModelo extends Conexion
 			// return false;
 			die($e->getMessage());
 		}
-    }
+	}
+	
 
     public function eliminar($id)
     {
         try
 		{
             $this->myCon = parent::conectar();
-			$stm = $this->myCon->prepare("DELETE from tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
+			$stm = $this->myCon->prepare("UPDATE tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
 			$stm->execute();
 
 			$this->myCon = parent::desconectar();

@@ -588,6 +588,8 @@
   <!-- js Datatable buttons excel -->
   <script src="DataTables/JSZip-2.5.0/jszip.min.js"></script>
 
+
+
   <script>
     $(document).ready(function (){
       $('#tblProductos').DataTable({

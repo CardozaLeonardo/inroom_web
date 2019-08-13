@@ -51,6 +51,6 @@ include_once('../modelo/Huesped.modelo.php');
 
 if($_GET)
 {
-   $productoMod->eliminar($_GET['user']);
+   $huespedMod->eliminar($_GET['user']);
    header("Location: /inroom_web/inroom/huespedes.php");
 }

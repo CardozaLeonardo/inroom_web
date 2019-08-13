@@ -40,19 +40,19 @@ class HuespedModelo extends Conexion
         try
 		{
             $this->myCon = parent::conectar();
-		    $result = array();
+		    
 
-			$stm = $this->myCon->prepare("DELETE FROM tbl_huesped set estado = 3 WHERE id_huesped = $id;");
+			$stm = $this->myCon->prepare("DELETE FROM tbl_huesped  WHERE id_huesped = $id;");
 			$stm->execute();
 
 			$this->myCon = parent::desconectar();
 			
-			return true;
+			// return true;
 		}
 		catch(Exception $e)
 		{
             die($e->getMessage());
-            return false;
+            // return false;
 		}
     }
 
