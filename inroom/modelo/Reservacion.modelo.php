@@ -103,6 +103,42 @@ class ReservacionModelo extends Conexion
 		}
 	}
 
+	public function getNewNumber()
+	{
+		try
+		{
+            $this->myCon = parent::conectar();
+			$result = array();
+			$value = 0;
+
+			$stm = $this->myCon->prepare("SELECT max(num_reserv) as num_reserv FROM tbl_reservacion WHERE estado <> 3;");
+			$stm->execute();
+
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				
+				$vr = new VistaReservaciones();
+
+				//_SET(CAMPOBD, atributoEntidad)			
+				
+				$vr->__SET('num_reserv', $r->num_reserv);
+				$value = $r->num_reserv;
+
+				$result[] = $vr;
+
+				//var_dump($result);
+            }
+            
+            $this->myCon = parent::desconectar();
+			$value++;
+			return $value;
+		}
+		catch(Exception $e)
+		{
+			die($e->getMessage());
+		}
+	}
+
 
 	public function anular($id)
 	{
