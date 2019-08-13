@@ -2,12 +2,12 @@
    
    include('includes.php');
 
-   $tipoModEmp = new TipoHabitacionModelo();
+   $tipoModEmp = new HuespedModelo();
 
    if(isset($_GET['user']))
    {
-       $userRec = new HabitacionModelo();
-       $user = $userRec->getHabitacion($_GET['user']);
+       $userRec = new HuespedModelo();
+       $user = $userRec->getHuesped($_GET['user']);
 
    }else{
        header('Location: /inroom_web/inroom');
@@ -24,7 +24,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title> InRoom | Nueva Habitacion </title>
+        <title> InRoom | Nuevo Huesped </title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -417,7 +417,7 @@
                         <p class="title-description"> Sample form elements </p>
                     </div>
                     <div class="subtitle-block">
-                        <h3 class="subtitle"> Actualizar Habitacion </h3>
+                        <h3 class="subtitle"> Actualizar Huesped</h3>
                     </div>
                     <section class="section">
                         <div class="row sameheight-container">
@@ -426,22 +426,35 @@
                                     <div class="title-block">
                                         <h3 class="title"> Ingrese los datos </h3>
                                     </div>
-                                    <form role="form" name="nuevaHabitacion" method="POST" action="control/Habitacion.control.php">
+                                    <form role="form" name="nuevoHuesped" method="POST" action="control/Huesped.control.php">
                                         <input name="action" type="hidden" value="2">
-                                        <input name="id_habitacion" type="hidden" value="<?php echo $user->__GET('id_habitacion'); ?>">
+                                        <input name="id_huesped" type="hidden" value="<?php echo $user->__GET('id_huesped'); ?>">
                                         <div class="form-group">
-                                            <label class="control-label">Número</label>
-                                            <input value="<?php echo $user->__GET('numero'); ?>" name="numero" type="text" required class="form-control boxed">
+                                            <label class="control-label">Nombres</label>
+                                            <input value="<?php echo $user->__GET('nombres'); ?>" required name="nombres" placeholder="Ingrese sus nombres" type="text" class="form-control boxed">
                                         </div>
+
                                         <div class="form-group">
-                                            <label class="control-label">Tipo de Habitacion</label>
-                                            <select required name="descripcion" class="form-control">
-                                            <option value="">Seleccione...</option>  
-                                            <?php foreach($tipoModEmp->listarTipoHab() as $r): ?>
-                                                <option value="<?php echo $r->__GET('id_tipoHabitacion'); ?>"><?php echo $r->__GET('descripcion'); ?></option>
-                                            <?php endforeach; ?>
-                                            </select>
+                                            <label class="control-label">Apellidos</label>
+                                            <input value="<?php echo $user->__GET('apellidos'); ?>" required name="apellidos" placeholder="Ingrese sus apellidos" type="text" class="form-control boxed">
                                         </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Cedula</label>
+                                            <input value="<?php echo $user->__GET('cedula'); ?>" required name="cedula" placeholder="Ingrese su cedula" type="text" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input name="telefono" value="<?php echo $user->__GET('telefono'); ?>" required placeholder="Ingrese su número de teléfono" type="number" min="0"  pattern="^[0-9]+" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input name="email" value="<?php echo $user->__GET('email'); ?>" required placeholder="Ingrese su correo electrónico" type="email" class="form-control boxed">
+                                        </div>
+
+
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Actualizar</button>
                                         
                                     </form>

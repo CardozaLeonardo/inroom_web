@@ -3,10 +3,8 @@
    include('includes.php');
    include_once './vendor/autoload.php';
 
-   $tipoModEmp = new TipoHabitacionModelo();
-
    $loader = new Twig_Loader_Filesystem('./template');
-   $title = "InRoom | Nueva Habitacion";
+   $title = "InRoom | Nuevo Huesped";
 
    $twig = new Twig_Environment($loader, []);
 
@@ -36,31 +34,46 @@
                         <p class="title-description"> Sample form elements </p>
                     </div>
                     <div class="subtitle-block">
-                        <h3 class="subtitle"> Nueva Habitacion </h3>
+                        <h3 class="subtitle"> Nuevo Huesped </h3>
                     </div>
                     <section class="section">
                         <div class="row sameheight-container">
                             <div class="col-md-8">
                                 <div class="card card-block sameheight-item">
                                     <div class="title-block">
-                                        <h3 class="title"> Registre una habitación </h3>
+                                        <h3 class="title"> Registre un huesped </h3>
                                     </div>
-                                    <form role="form" name="nuevaHabitacion" method="POST" action="control/Habitacion.control.php">
+                                    <form role="form" name="nuevoHuesped" method="POST" action="control/Huesped.control.php">
                                         <input name="action" type="hidden" value="1">
                                         <div class="form-group">
-                                            <label class="control-label">Número</label>
-                                            <input name="numero" type="text" required class="form-control boxed">
+                                            <label class="control-label">Nombres</label>
+                                            <input name="nombres" required placeholder="Ingrese los nombres" type="text" class="form-control boxed">
                                         </div>
+
+                                        
                                         <div class="form-group">
-                                            <label class="control-label">Tipo de habitación</label>
-                                            <select name="descripcion" required class="form-control">
-                                            <option value="">Seleccione...</option>   
-                                            <?php foreach($tipoModEmp->listarTipoHab() as $r): ?>
-                                                <option value="<?php echo $r->__GET('id_tipoHabitacion'); ?>"><?php echo $r->__GET('descripcion'); ?></option>
-                                            <?php endforeach; ?>
-                                            </select>
+                                            <label class="control-label">Apellidos</label>
+                                            <input name="apellidos" required placeholder="Ingrese los apellidos" type="text" class="form-control boxed">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>  
+
+                                        <div class="form-group">
+                                            <label class="control-label">Cédula</label>
+                                            <input name="cedula" required placeholder="Ingrese la cédula" type="text" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Teléfono</label>
+                                            <input name="telefono" required placeholder="Ingrese el telefono" type="number" min="1" pattern="^[0-9]+" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input name="email" required placeholder="Ingrese el correo electrónico" type="email" class="form-control boxed">
+                                        </div>
+
+               
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
+                                        
                                     </form>
                                 </div>
                             </div>

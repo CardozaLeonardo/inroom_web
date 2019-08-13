@@ -10,7 +10,7 @@ class HabitacionModelo extends Conexion
         try{
 			//$insert = 0;
 			$this->myCon = parent::conectar();
-		    $sql = "INSERT INTO tbl_habitacion (numero,estado,id_tipoHabitacion) VALUES(?,?,?)";
+		    $sql = "INSERT INTO tbl_habitacion (numero,estado,id_tipoHabitacion, id_habitacion ) VALUES(?,?,?,?)";
 
 			$this->myCon->prepare($sql)
 			->execute(
@@ -18,16 +18,18 @@ class HabitacionModelo extends Conexion
 					$h->__GET('numero'),
 					$h->__GET('estado'),
 					$h->__GET('id_tipoHabitacion'),
+					$h->__GET('id_habitacion')
 				)
 			);
 
 			$this->myCon = parent::desconectar();
             //$insert = 1;
-            return true;
+            //return true;
 			//return $insert;
 		}
 		catch(Exception $e){
-            return false;
+			// return false;
+			die($e->getMessage());
 		}
     }
 
@@ -36,19 +38,17 @@ class HabitacionModelo extends Conexion
         try
 		{
             $this->myCon = parent::conectar();
-		    $result = array();
-
-			$stm = $this->myCon->prepare("UPDATE tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
+			$stm = $this->myCon->prepare("DELETE from tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
 			$stm->execute();
 
 			$this->myCon = parent::desconectar();
 			
-			return true;
+			// return true;
 		}
 		catch(Exception $e)
 		{
             die($e->getMessage());
-            return false;
+            // return false;
 		}
     }
 
@@ -63,8 +63,9 @@ class HabitacionModelo extends Conexion
 			->execute(
 				array(
 					$h->__GET('numero'),
+					$h->__GET('estado'),
 					$h->__GET('id_tipoHabitacion'),
-					$h->__GET('estado')
+					$h->__GET('id_habitacion')
 				)
 			);
 
@@ -96,7 +97,8 @@ class HabitacionModelo extends Conexion
 				//_SET(CAMPOBD, atributoEntidad)			
 				$hab->__SET('id_habitacion', $r->id_habitacion);
                 $hab->__SET('numero', $r->numero);
-                $hab->__SET('descripcion', $r->descripcion);
+				$hab->__SET('descripcion', $r->descripcion);
+				// $hab->__SET('id_tipoHabitacion', $r->id_tipoHabitacion);
                 // $hab->__SET('id_tipoHabitacion', $r->id_tipoHabitacion);
                 	
 				$result[] = $hab;
@@ -129,7 +131,8 @@ class HabitacionModelo extends Conexion
 
 			$hab->__SET('id_habitacion', $r->id_habitacion);
             $hab->__SET('numero', $r->numero);
-            $hab->__SET('descripcion', $r->descripcion);
+			$hab->__SET('descripcion', $r->descripcion);
+			
 			// $hab->__SET('id_tipoHabitacion', $r->id_tipoHabitacion);
 			
 			return $hab;

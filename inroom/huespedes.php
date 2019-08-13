@@ -2,7 +2,7 @@
 
  include('includes.php');
 
- $habitacionMod = new HabitacionModelo();
+ $huespedMod = new HuespedModelo();
 
 ?>
 
@@ -18,6 +18,7 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="css/vendor.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <!-- DATATABLE -->
     <link href="DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- DATATABLE buttons -->
@@ -418,8 +419,8 @@
                 <div class="mobile-menu-handle"></div>
                 <article class="content responsive-tables-page">
                     <div class="title-block">
-                        <h1 class="title"> Lista de Habitaciones </h1>
-                        <p class="title-description"> When blocks aren't enough </p>
+                        <h1 class="title"> Lista de huespedes </h1>
+                        <p class="title-description">  </p>
                     </div>
                     
                     <section class="section">
@@ -428,31 +429,39 @@
                                 <div class="card">
                                     <div class="card-block">
                                         <div class="card-title-block">
-                                            <h3 class="title"> Habitaciones </h3>
+                                            <h3 class="title"> Huespedes </h3>
                                         </div>
                                         <section class="example">
                                             <div class="table-flip-scroll">
-                                                <table id="tblHabitaciones" class="table table-striped table-bordered table-hover flip-content">
+                                                <table id="tblHuespedes" class="table table-striped table-bordered table-hover flip-content">
                                                     <thead class="flip-header">
                                                         <tr>
                                                             <th>ID</th>
-                                                            <th>Número</th>
-                                                            <th>Descripción</th>
+                                                            <th>Nombres</th>
+                                                            <th>Apellidos</th>
+                                                            <th>Cedula</th>
+                                                            <th>Telefono</th>
+                                                            <th>Email</th>
                                                             <th>Opciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php foreach($habitacionMod->getHabitaciones() as $r): ?>
+                                                    <?php foreach($huespedMod->getHuespedes() as $r): ?>
                                                         <tr>
-                                                           <td><?php echo $r->__GET('id_habitacion'); ?></td>
-                                                           <td><?php echo $r->__GET('numero'); ?></td>
-                                                           <td><?php echo $r->__GET('descripcion'); ?></td>
+                                                           <td><?php echo $r->__GET('id_huesped'); ?></td>
+                                                           <td><?php echo $r->__GET('nombres'); ?></td>
+                                                           <td><?php echo $r->__GET('apellidos'); ?></td>
+                                                           <td><?php echo $r->__GET('cedula'); ?></td>
+                                                           <td><?php echo $r->__GET('telefono'); ?></td>
+                                                           <td><?php echo $r->__GET('email'); ?></td>
+                                                           
+                                                           
                                                             <td>
-                                                                <a title="Editar" href="editHabitacion.php?user=<?php echo $r->__GET('id_habitacion'); ?>">
+                                                                <a title="Editar" href="editHuesped.php?user=<?php echo $r->__GET('id_huesped'); ?>">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
                                                                 &nbsp;&nbsp;
-                                                                <a title="Eliminar" href="control/Habitacion.control.php?user=<?php echo $r->__GET('id_habitacion'); ?>">
+                                                                <a title="Eliminar" href="control/Huesped.control.php?user=<?php echo $r->__GET('id_huesped'); ?>">
                                                                     <i class="fa fa-trash-o"></i>
                                                                 </a>
                                                             </td>
@@ -579,11 +588,9 @@
   <!-- js Datatable buttons excel -->
   <script src="DataTables/JSZip-2.5.0/jszip.min.js"></script>
 
-
-
   <script>
     $(document).ready(function (){
-      $('#tblHabitaciones').DataTable({
+      $('#tblProductos').DataTable({
         dom: 'Bfrtip',
         buttons: [
         'pdf',
