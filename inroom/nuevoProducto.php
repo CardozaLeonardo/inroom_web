@@ -3,7 +3,7 @@
    include('includes.php');
    include_once './vendor/autoload.php';
 
-   $tipoModEmp = new TipoProductoModelo();
+   $user = new TipoProductoModelo();
 
    $loader = new Twig_Loader_Filesystem('./template');
    $title = "InRoom | Nuevo Producto";
@@ -47,47 +47,55 @@
                                     </div>
                                     <form role="form" name="nuevoProducto" method="POST" action="control/Producto.control.php">
                                         <input name="action" type="hidden" value="1">
+                                        <input id="opc"name="opc" type="hidden" value="1">
+                                        
                                         <div class="form-group">
                                             <label class="control-label">Descripcion</label>
-                                            <input name="descripcion" type="text" class="form-control boxed">
+                                            <input required value="" name="descripcion" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Tipo de producto</label>
-                                            <select name="tipoProducto" class="form-control">
-                                            <?php foreach($tipoModEmp->listarTipoPro() as $r): ?>
+                                            <select required id="tipoProducto" name="tipoProducto" class="form-control">
+                                                <option value="">Seleccionar</option>
+                                            <?php foreach($user->listarTipoPro() as $r): ?>
                                                 <option value="<?php echo $r->__GET('id_tipoProducto'); ?>"><?php echo $r->__GET('tipoProducto'); ?></option>
                                             <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Costo</label>
-                                            <input name="costo" placeholder="C$ 00.00" type="text" class="form-control boxed">
+                                            <input id="costo" value="" name="costo" placeholder="C$ 00.00" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Precio</label>
-                                            <input name="precio" placeholder="C$ 00.00" type="text" class="form-control boxed">
+                                            <input required value="" name="precio" placeholder="C$ 00.00" type="number" class="form-control boxed" min="1" step=".01">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Impuesto</label>
-                                            <input name="impuesto" placeholder="C$ 00.00" type="text" class="form-control boxed">
+                                            <input name="impuesto" value="" placeholder="C$ 00.00" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Marca</label>
-                                            <input name="marca" type="text" class="form-control boxed">
+                                            <input id="marca" name="marca" value="" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Fecha de vencimiento</label>
-                                            <input name="vencimiento" placeholder="DD/MM/YYYY" type="date" class="form-control boxed">
+                                            <input id="vencimiento" name="vencimiento" value="" placeholder="DD/MM/YYYY" type="date" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Stock</label>
+                                            <input id="stock" name="stock" value="" placeholder="0" type="number" class="form-control boxed" min="0" step="1">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Código de barras</label>
-                                            <input name="codigoBarras" type="text" class="form-control boxed">
+                                            <input id="codigoBarras"name="codigoBarras" value="" type="text" class="form-control boxed">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
@@ -130,5 +138,6 @@
         </div>
         <script src="js/vendor.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

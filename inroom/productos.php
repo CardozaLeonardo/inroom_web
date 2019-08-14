@@ -20,10 +20,12 @@
         <link rel="stylesheet" href="css/vendor.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <!-- DATATABLE -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <link href="DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- DATATABLE buttons -->
     <link href="DataTables/Buttons-1.5.6/css/buttons.dataTables.min.css" rel="stylesheet">
         <!-- Theme initialization -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <script>
             var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
             {};
@@ -37,6 +39,7 @@
                 document.write('<link rel="stylesheet" id="theme-style" href="css/app.css">');
             }
         </script>
+
     </head>
     <body>
         <div class="main-wrapper">

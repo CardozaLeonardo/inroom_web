@@ -31,15 +31,14 @@ class HabitacionModelo extends Conexion
 			// return false;
 			die($e->getMessage());
 		}
-	}
-	
+    }
 
     public function eliminar($id)
     {
         try
 		{
             $this->myCon = parent::conectar();
-			$stm = $this->myCon->prepare("UPDATE tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
+			$stm = $this->myCon->prepare("DELETE from tbl_habitacion set estado = 3 WHERE id_habitacion = $id;");
 			$stm->execute();
 
 			$this->myCon = parent::desconectar();
@@ -142,5 +141,38 @@ class HabitacionModelo extends Conexion
 		{
 			die($e->getMessage());
 		}
-    }
+	}
+	
+	public function getHabitacionPorTipo($type)
+	{
+		try 
+		{
+			$this->myCon = parent::conectar();
+			$querySQL = "SELECT * FROM tbl_habitacion WHERE id_tipoHabitacion = ?;";
+			$stm = $this->myCon->prepare($querySQL);
+			$stm->execute(array($type));
+			$result = array();
+			
+			//$r = $stm->fetch(PDO::FETCH_OBJ);
+			
+
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				$hab = new Habitacion();
+				$hab->__SET('id_habitacion', $r->id_habitacion);
+                $hab->__SET('numero', $r->numero);
+                	
+				$result[] = array('id_habitacion' => $r->id_habitacion, 'numero' =>$r->numero);
+
+				//var_dump($result);
+            }
+
+			$habs = json_encode($result);
+			return $habs;
+		} 
+		catch (Exception $e) 
+		{
+			die($e->getMessage());
+		}
+	}
 }

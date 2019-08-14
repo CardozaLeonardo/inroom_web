@@ -40,19 +40,19 @@ class HuespedModelo extends Conexion
         try
 		{
             $this->myCon = parent::conectar();
-		    
+		    $result = array();
 
-			$stm = $this->myCon->prepare("DELETE FROM tbl_huesped  WHERE id_huesped = $id;");
+			$stm = $this->myCon->prepare("DELETE FROM tbl_huesped set estado = 3 WHERE id_huesped = $id;");
 			$stm->execute();
 
 			$this->myCon = parent::desconectar();
 			
-			// return true;
+			return true;
 		}
 		catch(Exception $e)
 		{
             die($e->getMessage());
-            // return false;
+            return false;
 		}
     }
 
@@ -152,5 +152,48 @@ class HuespedModelo extends Conexion
 		{
 			die($e->getMessage());
 		}
-    }
+	}
+	
+	public function buscarHuesped($data)
+	{
+		try
+		{
+            $this->myCon = parent::conectar();
+		    $result = array();
+
+			$stm = $this->myCon->prepare("SELECT * FROM tbl_huesped WHERE nombres LIKE '%$data%' OR apellidos LIKE
+			 '%$data%' OR cedula LIKE '%$data%';");
+			$stm->execute();
+
+			foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r)
+			{
+				
+				$huesp = new Huesped();
+
+				//_SET(CAMPOBD, atributoEntidad)			
+				$huesp->__SET('id_huesped', $r->id_huesped);
+				$huesp->__SET('nombres', $r->nombres);
+				$huesp->__SET('apellidos', $r->apellidos);
+				$huesp->__SET('cedula', $r->cedula);
+				$huesp->__SET('telefono', $r->telefono);
+                $huesp->__SET('email', $r->email);
+				// $hab->__SET('id_tipoHabitacion', $r->id_tipoHabitacion);
+				$nombre = 'nombre';
+                	
+				$result[] = array( $nombre => $r->nombres, 'apellidos' => $r->apellidos);
+
+				//var_dump($result);
+            }
+            
+			$this->myCon = parent::desconectar();
+			
+			$json = json_encode($result);
+			
+			return $json;
+		}
+		catch(Exception $e)
+		{
+			die($e->getMessage());
+		}
+	}
 }

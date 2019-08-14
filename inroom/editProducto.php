@@ -44,6 +44,8 @@
                 document.write('<link rel="stylesheet" id="theme-style" href="css/app.css">');
             }
         </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        
     </head>
     <body>
         <div class="main-wrapper">
@@ -428,15 +430,17 @@
                                     </div>
                                     <form role="form" name="nuevoProducto" method="POST" action="control/Producto.control.php">
                                         <input name="action" type="hidden" value="2">
+                                        <input id="opc"name="opc" type="hidden" value="1">
                                         <input name="id_producto" type="hidden" value="<?php echo $user->__GET('id_producto'); ?>">
                                         <div class="form-group">
                                             <label class="control-label">Descripcion</label>
-                                            <input value="<?php echo $user->__GET('descripcion'); ?>" name="descripcion" type="text" class="form-control boxed">
+                                            <input require value="<?php echo $user->__GET('descripcion'); ?>" name="descripcion" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Tipo de producto</label>
-                                            <select name="tipoProducto" class="form-control">
+                                            <select required id="tipoProducto" name="tipoProducto" class="form-control">
+                                                <option value="">Seleccionar</option>
                                             <?php foreach($tipoModEmp->listarTipoPro() as $r): ?>
                                                 <option value="<?php echo $r->__GET('id_tipoProducto'); ?>"><?php echo $r->__GET('tipoProducto'); ?></option>
                                             <?php endforeach; ?>
@@ -444,12 +448,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Costo</label>
-                                            <input value="<?php echo $user->__GET('costo'); ?>" name="costo" placeholder="C$ 00.00" type="text" class="form-control boxed">
+                                            <input id="costo" value="<?php echo $user->__GET('costo'); ?>" name="costo" placeholder="C$ 00.00" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Precio</label>
-                                            <input value="<?php echo $user->__GET('precio'); ?>" name="precio" placeholder="C$ 00.00" type="text" class="form-control boxed">
+                                            <input required value="<?php echo $user->__GET('precio'); ?>" name="precio" placeholder="C$ 00.00" type="number" class="form-control boxed" min="1" step=".01">
                                         </div>
 
                                         <div class="form-group">
@@ -459,17 +463,22 @@
 
                                         <div class="form-group">
                                             <label class="control-label">Marca</label>
-                                            <input name="marca" value="<?php echo $user->__GET('marca'); ?>" type="text" class="form-control boxed">
+                                            <input id="marca" name="marca" value="<?php echo $user->__GET('marca'); ?>" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Fecha de vencimiento</label>
-                                            <input name="vencimiento" value="<?php echo $user->__GET('fecha_vencimiento'); ?>" placeholder="DD/MM/YYYY" type="date" class="form-control boxed">
+                                            <input id="vencimiento" name="vencimiento" value="<?php echo $user->__GET('fecha_vencimiento'); ?>" placeholder="DD/MM/YYYY" type="date" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Stock</label>
+                                            <input id="stock" name="stock" value="<?php echo $user->__GET('stock'); ?>" placeholder="0" type="number" class="form-control boxed" min="0" step="1">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="control-label">Código de barras</label>
-                                            <input name="codigoBarras" value="<?php echo $user->__GET('codigo_barra'); ?>" type="text" class="form-control boxed">
+                                            <input id="codigoBarras"name="codigoBarras" value="<?php echo $user->__GET('codigo_barra'); ?>" type="text" class="form-control boxed">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Actualizar</button>
@@ -1177,5 +1186,6 @@
         </div>
         <script src="js/vendor.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

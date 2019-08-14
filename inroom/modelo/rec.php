@@ -35,14 +35,14 @@ class Test extends Conexion
 }
 
 
-$user = $_POST['user'];
+$user = $_POST['str'];
  
 //Decode the JSON string and convert it into a PHP associative array.
 $decoded = json_decode($user, true);
 
 $t = new Test();
 
-$t->crear($decoded['name']);
+$t->crear($decoded['info']);
 
 
 

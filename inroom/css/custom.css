@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 
-.delete-room{
+.delete-room, .addHuesped{
     cursor: pointer;
 }
 
@@ -18,7 +18,7 @@
     line-height: 55px;
 }
 
-.delete-room:hover{
+.delete-room:hover, .addHuesped:hover{
     color: #59E436;
     transform: scale(1.6);
 }

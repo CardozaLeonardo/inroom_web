@@ -25,6 +25,7 @@ include_once('../modelo/Producto.modelo.php');
            $producto->__SET('marca', $_POST['marca']);
            $producto->__SET('codigo_barra', $_POST['codigoBarras']);
            $producto->__SET('estado', 1);
+           $producto->__SET('stock', $_POST['stock']);
 
            $productoMod->crear($producto);
            header('Location: /inroom/productos.php');
@@ -42,6 +43,7 @@ include_once('../modelo/Producto.modelo.php');
            $producto->__SET('fecha_vencimiento', $_POST['vencimiento']);
            $producto->__SET('codigo_barra', $_POST['codigoBarras']);
            $producto->__SET('estado', 2);
+           $producto->__SET('stock', $_POST['stock']);
 
            $productoMod->actualizar($producto);
            header('Location: /inroom/productos.php');

@@ -132,6 +132,16 @@
                         </ul>
                     </div>
                 </header>
+                <script>
+                    $.ajax({
+                        url: 'control/buscarHuespes.php',
+                        Type: 'POST',
+                        data: {str},
+                        success: function(response){
+                            fillTableHuesped(response)
+                        }
+                    });
+                </script>
                 <aside class="sidebar">
                     <div class="sidebar-container">
                         <div class="sidebar-header">

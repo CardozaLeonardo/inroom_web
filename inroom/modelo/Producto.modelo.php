@@ -11,7 +11,7 @@ class ProductoModelo extends Conexion
 			//$insert = 0;
 			$this->myCon = parent::conectar();
 		    $sql = "INSERT INTO tbl_producto (descripcion, precio, impuesto, id_tipoProducto, marca, costo,
-			fecha_vencimiento, estado, codigo_barra) VALUES(?,?,?,?,?,?,?,?,?)";
+			fecha_vencimiento, estado, codigo_barra, stock) VALUES(?,?,?,?,?,?,?,?,?,?)";
 
 			$this->myCon->prepare($sql)
 			->execute(
@@ -24,7 +24,8 @@ class ProductoModelo extends Conexion
 					$p->__GET('costo'),
 					$p->__GET('fecha_vencimiento'),
 					$p->__GET('estado'),
-					$p->__GET('codigo_barra')
+					$p->__GET('codigo_barra'),
+					$p->__GET('stock')
 				)
 			);
 
@@ -65,7 +66,7 @@ class ProductoModelo extends Conexion
 			//$insert = 0;
 			$this->myCon = parent::conectar();
 		    $sql = "UPDATE tbl_producto SET descripcion = ?, precio = ?, impuesto = ?, id_tipoProducto = ?, marca = ?, 
-            costo = ?, fecha_vencimiento = ?, estado = ?, codigo_barra = ? WHERE id_producto = ?;";
+            costo = ?, fecha_vencimiento = ?, estado = ?, codigo_barra = ?, stock = ? WHERE id_producto = ?;";
 
 			$this->myCon->prepare($sql)
 			->execute(
@@ -79,6 +80,7 @@ class ProductoModelo extends Conexion
 					$p->__GET('fecha_vencimiento'),
 					$p->__GET('estado'),
 					$p->__GET('codigo_barra'),
+					$p->__GET('stock'),
 					$p->__GET('id_producto')
 				)
 			);
@@ -116,7 +118,8 @@ class ProductoModelo extends Conexion
 				$pro->__SET('marca', $r->marca);
 				$pro->__SET('tipoProducto', $r->tipoProducto);
 				$pro->__SET('fecha_vencimiento', $r->fecha_vencimiento);
-                $pro->__SET('codigo_barra', $r->codigo_barra);
+				$pro->__SET('codigo_barra', $r->codigo_barra);
+				$pro->__SET('stock', $r->stock);
                 $pro->__SET('id_tipoProducto', $r->id_tipoProducto);		
 
 				$result[] = $pro;
@@ -156,6 +159,7 @@ class ProductoModelo extends Conexion
 			$pro->__SET('fecha_vencimiento', $r->fecha_vencimiento);
 			$pro->__SET('codigo_barra', $r->codigo_barra);
 			$pro->__SET('impuesto', $r->impuesto);
+			$pro->__SET('stock', $r->stock);
 			$pro->__SET('id_tipoProducto', $r->id_tipoProducto);
 
 			return $pro;

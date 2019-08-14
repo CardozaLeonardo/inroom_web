@@ -2,20 +2,20 @@
 
 class DetalleReservModelo extends Conexion
 {
-    public function crear(DetalleReserv $dr)
+    public function crear($dr, $idReser)
     {
         try{
 			//$insert = 0;
 			$this->myCon = parent::conectar();
-		    $sql = "INSERT INTO tbl_detalleReserv (id_reservacion, id_habitacion, descripcion, fechaEntrada, fechaSalida, horaEntrada,
-			, horaSalida) VALUES(?,?,?,?,?,?,?);";
+		    $sql = "INSERT INTO tbl_detalleReserv (id_reservacion, id_habitacion, fechaEntrada, fechaSalida, horaEntrada,
+			, horaSalida) VALUES(?,?,?,?,?,?);";
 
 			$this->myCon->prepare($sql)
 			->execute(
 				array(
-					$dr->__GET('id_reservacion'),
+					$idReser,
 					$dr->__GET('id_habitacion'),
-					$dr->__GET('descripcion'),
+					//$dr->__GET('descripcion'),
 					$dr->__GET('fechaEntrada'),
 					$dr->__GET('fechaSalida'),
 					$dr->__GET('horaEntrada'),

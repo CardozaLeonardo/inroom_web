@@ -7,6 +7,7 @@
    $tipoHabMod = new TipoHabitacionModelo();
    $habMod = new HabitacionModelo();
    $reservMod = new ReservacionModelo();
+   $huespedMod = new HuespedModelo();
    $title = "InRoom | Nueva Reservación";
 
    $loader = new Twig_Loader_Filesystem('./template');
@@ -39,7 +40,7 @@
                         <p class="title-description"> Sample form elements </p>
                     </div>
                     <div class="subtitle-block">
-                        <h3 class="subtitle"> Nuevo Producto </h3>
+                        <h3 class="subtitle"> Nuevo Reservación </h3>
                     </div>
                     <section class="section">
                         <div class="row sameheight-container">
@@ -48,17 +49,18 @@
                                     <div class="title-block">
                                         <h3 class="title"> Registre un reservación </h3>
                                     </div>
-                                    <form role="form" name="nuevoProducto" method="POST" action="control/Producto.control.php">
+                                    <form role="form" name="nuevoProducto" method="POST" action="">
                                         <input name="action" type="hidden" value="1">
+                                        <input id="listaHab" name="listaHab" type="hidden" value="">
                                         <div class="form-group">
                                             <label class="control-label">Número de reservación</label>
-                                            <input id="numberReserv" name="numberReserv" value="<?php echo $reservMod->getNewNumber(); ?>" type="text" class="form-control boxed">
+                                            <input id="numberReserv" name="numberReserv" value="<?php echo $reservMod->getNewNumber(); ?>" type="text" class="form-control boxed disabled">
                                         </div>
                                         <hr>
 
                                         <div class="form-group">
                                             <label class="control-label">Tipo de habitación</label>
-                                            <select id="selecTipoHab" name="tipoProducto" class="form-control">
+                                            <select id="selecTipoHab" name="tipoHabitacion" class="form-control">
                                                 <?php foreach($tipoHabMod->listarTipoHab() as $r): ?>
                                                     <option value="<?php echo $r->__GET('id_tipoHabitacion'); ?>"><?php echo $r->__GET('descripcion'); ?></option>
                                                 <?php endforeach; ?>
@@ -98,50 +100,43 @@
 
                                         <button id="btnAddRoom" type="button" class="btn btn-primary">Agregar habitación</button>
                                         <br><br><br>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Huesped</label>
+                                            <input id="huespedId" placeholder="" type="text" class="form-control boxed">
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="searchHuesped" placeholder="Buscar huesped" type="text" class="form-control boxed">
+                                        </div>
+                                        <br><br>
                                         <div class="table-flip-scroll">
-                                                <table id="tblProductos" class="table table-striped table-bordered table-hover flip-content">
+                                                <table id="tblHuespedes" class="table table-striped table-bordered table-hover flip-content">
                                                     <thead class="flip-header">
                                                         <tr>
                                                             <th>ID</th>
-                                                            <th>Descripcion</th>
-                                                            <th>Costo</th>
-                                                            <th>Precio</th>
-                                                            <th>Tipo</th>
-                                                            <th>Marca</th>
-                                                            <th>Impuesto</th>
-                                                            <th>Vencimiento</th>
-                                                            <th>Código de barras</th>
-                                                            <th>Opciones</th>
+                                                            <th>Nombres</th>
+                                                            <th>Apellidos</th>
+                                                            <th>Cédula</th>
+                                                            <th>Add</th>
+                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php foreach($productoMod->getProductos() as $r): ?>
+                                                    <?php foreach($huespedMod->getHuespedes() as $r): ?>
                                                         <tr>
-                                                           <td><?php echo $r->__GET('id_producto'); ?></td>
-                                                           <td><?php echo $r->__GET('descripcion'); ?></td>
-                                                           <td><?php echo $r->__GET('costo'); ?></td>
-                                                           <td><?php echo $r->__GET('precio'); ?></td>
-                                                           <td><?php echo $r->__GET('tipoProducto'); ?></td>
-                                                           <td><?php echo $r->__GET('marca'); ?></td>
-                                                           <td><?php echo $r->__GET('impuesto'); ?></td>
-                                                           <td><?php echo $r->__GET('fecha_vencimiento'); ?></td>
-                                                           <td><?php echo $r->__GET('codigo_barra'); ?></td>
-                                                            <td>
-                                                                <a title="Editar" href="editProducto.php?user=<?php echo $r->__GET('id_producto'); ?>">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                &nbsp;&nbsp;
-                                                                <a title="Eliminar" href="control/Producto.control.php?user=<?php echo $r->__GET('id_producto'); ?>">
-                                                                    <i class="fa fa-trash-o"></i>
-                                                                </a>
-                                                            </td>
+                                                           <td><?php echo $r->__GET('id_huesped'); ?></td>
+                                                           <td><?php echo $r->__GET('nombres'); ?></td>
+                                                           <td><?php echo $r->__GET('apellidos'); ?></td>
+                                                           <td><?php echo $r->__GET('cedula'); ?></td>
+                                                           <td><i class="fa fa-plus addHuesped" onclick="agregarHuesped(<?php echo $r->__GET('id_huesped'); ?>)"></i></td>
+                                                           
                                                         </tr>
                                                      <?php endforeach; ?>
                                                         
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
+                                        <button id="submit_btn" type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
                                         
                                     </form>
                                 </div>
@@ -149,6 +144,7 @@
 
                             <div id="rooms-list" class="col-md-4 bg-white">
                                 <div class="subtitle-block">
+                                    <br>
                                     <h3 class="subtitle text-center"> Habitaciones</h3>
                                 </div>
 
@@ -192,6 +188,12 @@
             </div>
         </div>
 
+        
+
+        <script src="js/vendor.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/reservacion.js"></script>
+
         <script src="DataTables/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
         <!-- DATATABLE -->
   <script src="DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
@@ -212,7 +214,7 @@
 
   <script>
     $(document).ready(function (){
-      $('#tblProductos').DataTable({
+      $('#tblHuespedes').DataTable({
         dom: 'Bfrtip',
         buttons: [
         'pdf',
@@ -222,9 +224,21 @@
 
       });
     });
+    </script>
 
-        <script src="js/vendor.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/reservacion.js"></script>
+    <script>
+        compareDates('05/06/2019','12:33','04/06/2019','12:33')
+        //console.log("HOoola");
+
+        // $(document).ready(function () {
+        //     Swal.fire({
+        //     title: 'Error!',
+        //     text: 'Do you want to continue',
+        //     type: 'error',
+        //     confirmButtonText: 'Cool'
+        //     })
+        // });
+
+    </script>
     </body>
 </html>
