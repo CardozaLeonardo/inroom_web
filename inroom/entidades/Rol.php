@@ -2,7 +2,7 @@
 
 class Rol
 {
-    private $rol_id;
+    private $id_rol;
     private $rol;
 
     public function __GET($k){ return $this->$k; }

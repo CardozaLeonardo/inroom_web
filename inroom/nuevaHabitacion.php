@@ -1,6 +1,8 @@
 <?php 
    
+   include('loginRedirect.php');
    include('includes.php');
+   
    include_once './vendor/autoload.php';
 
    $tipoModEmp = new TipoHabitacionModelo();

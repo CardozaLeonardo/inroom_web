@@ -1,29 +1,21 @@
+<?php 
+
+   include('includes.php');
+   include_once './vendor/autoload.php';
+
+
+   $loader = new Twig_Loader_Filesystem('./template');
+   $title = "InRoom | Iniciar Sessión";
+
+   $twig = new Twig_Environment($loader, []);
+
+
+?>
+
+
 <!doctype html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title> ModularAdmin - Free Dashboard Theme | HTML Version </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        <link rel="stylesheet" href="css/vendor.css">
-        <!-- Theme initialization -->
-        <script>
-            var themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
-            {};
-            var themeName = themeSettings.themeName || '';
-            if (themeName)
-            {
-                document.write('<link rel="stylesheet" id="theme-style" href="css/app-' + themeName + '.css">');
-            }
-            else
-            {
-                document.write('<link rel="stylesheet" id="theme-style" href="css/app.css">');
-            }
-        </script>
-    </head>
+<?php echo $twig->render('head.html', compact('title')); ?>
     <body>
         <div class="auth">
             <div class="auth-container">
@@ -41,15 +33,32 @@
                     </header>
                     <div class="auth-content">
                         <p class="text-center">LOGIN TO CONTINUE</p>
-                        <form id="login-form" action="/index.html" method="GET" novalidate="">
-                            <div class="form-group">
+                        <form  action="control/Login.control.php" method="POST" novalidate="OFF">
+                          <?php if(isset($_GET['status'])): ?>
+                            <div class="form-group has-error">
                                 <label for="username">Username</label>
-                                <input type="email" class="form-control underlined" name="username" id="username" placeholder="Your email address" required>
+                                <input type="text" class="form-control underlined" name="username"  placeholder="Your email address" required>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group has-error">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control underlined" name="password" id="password" placeholder="Your password" required>
+                                
+                                <span class="has-error">Usuario o contraseña incorrecta.</span>
+                                
                             </div>
+                          <?php else: ?>
+                            <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control underlined" name="username"  placeholder="Your email address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control underlined" name="password" id="password" placeholder="Your password" required>
+                                    
+                                        <!-- <span class="has-error">Usuario o contraseña incorrecta.</span> -->
+                                    
+                                </div>
+                          <?php endif ?>
                             <div class="form-group">
                                 <label for="remember">
                                     <input class="checkbox" id="remember" type="checkbox">
@@ -67,8 +76,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <a href="index.html" class="btn btn-secondary btn-sm">
-                        <i class="fa fa-arrow-left"></i> Back to dashboard </a>
+                    <!-- <a href="index.html" class="btn btn-secondary btn-sm"> -->
+                        <!-- <i class="fa fa-arrow-left"></i> Back to dashboard </a> -->
                 </div>
             </div>
         </div>

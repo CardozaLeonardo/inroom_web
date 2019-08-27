@@ -4,12 +4,27 @@
    include('includes.php');
    include_once './vendor/autoload.php';
 
-   $user = new TipoProductoModelo();
+   $roles = new RolModelo();
 
    $loader = new Twig_Loader_Filesystem('./template');
    $title = "InRoom | Nuevo Producto";
-
+   $username = "Anonymous";
    $twig = new Twig_Environment($loader, []);
+
+   $sm = new SessionModelo();
+   $userMod = new UserModelo();
+   $usr = new User();
+   $ss = $sm->getSession($_COOKIE['inroom_session']);
+   $id_user = $ss->__GET('id_user');
+   $usr = $userMod->getUser($id_user);
+   $username = $usr->__GET('user');
+
+   if($usr->__GET('photo_url') == null)
+   {
+       $photo = "assets/faces/8.jpg";
+   }else{
+       $photo = $usr->__GET('photo_url');
+   }
 
 
 ?>
@@ -24,7 +39,7 @@
         <div class="main-wrapper">
             <div class="app" id="app">
                 
-                <?php echo $twig->render('navbar.html'); ?>
+                <?php echo $twig->render('navbar.html', compact('username','photo')); ?>
 
                 <?php echo $twig->render('sidebar.html'); ?>
                 
@@ -37,7 +52,7 @@
                         <p class="title-description"> Sample form elements </p>
                     </div>
                     <div class="subtitle-block">
-                        <h3 class="subtitle"> Nuevo Producto </h3>
+                        <h3 class="subtitle"> Nuevo Usuario </h3>
                     </div>
                     <section class="section">
                         <div class="row sameheight-container">
@@ -46,58 +61,60 @@
                                     <div class="title-block">
                                         <h3 class="title"> Registre un producto </h3>
                                     </div>
-                                    <form role="form" name="nuevoProducto" method="POST" action="control/Producto.control.php">
+                                    <form role="form" name="nuevoProducto" method="POST" action="control/User.control.php">
                                         <input name="action" type="hidden" value="1">
                                         <input id="opc"name="opc" type="hidden" value="1">
                                         
                                         <div class="form-group">
-                                            <label class="control-label">Descripcion</label>
-                                            <input required value="" name="descripcion" type="text" class="form-control boxed">
+                                            <label class="control-label">Nombres</label>
+                                            <input required name="nombres" type="text" class="form-control boxed">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Apellidos</label>
+                                            <input required name="apellidos" type="text" class="form-control boxed">
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label">Tipo de producto</label>
-                                            <select required id="tipoProducto" name="tipoProducto" class="form-control">
+                                            <label class="control-label">Usuario</label>
+                                            <input id="usernameField" required name="username" type="text" class="form-control boxed">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Correo electrónico</label>
+                                            <input id="emailField" required name="email" type="email" class="form-control boxed">
+                                            <!-- <span class="has-error">Este correo ya está registrado</span> -->
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label">Roles</label>
+                                            <select required id="roles" name="roles" class="form-control">
                                                 <option value="">Seleccionar</option>
-                                            <?php foreach($user->listarTipoPro() as $r): ?>
-                                                <option value="<?php echo $r->__GET('id_tipoProducto'); ?>"><?php echo $r->__GET('tipoProducto'); ?></option>
+                                            <?php foreach($roles->getRoles() as $r): ?>
+                                                <option value="<?php echo $r->__GET('id_rol'); ?>"><?php echo $r->__GET('rol'); ?></option>
                                             <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Costo</label>
-                                            <input id="costo" value="" name="costo" placeholder="C$ 00.00" type="text" class="form-control boxed">
+
+                                        <input type="hidden" id="rolesList" name="rolesList" value="">
+
+                                        <div class="rolCont">
+                                            
                                         </div>
 
+                                        <button id="btnAgregarRol" type="button" class="btn btn-primary">Agregar</button>
+                                        <br>
+                                        <br>
                                         <div class="form-group">
-                                            <label class="control-label">Precio</label>
-                                            <input required value="" name="precio" placeholder="C$ 00.00" type="number" class="form-control boxed" min="1" step=".01">
+                                            <label class="control-label">Contraseña</label>
+                                            <input required id="password" name="password" placeholder="Ingrese contraseña" type="password" class="form-control boxed">
+                                        <!-- </div>
+
+                                        <div class="form-group"> -->
+                                            <br>
+                                            <input required id="passwordConf" name="passwordConf" placeholder="Repita la contraseña" type="password" class="form-control boxed">
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label">Impuesto</label>
-                                            <input name="impuesto" value="" placeholder="C$ 00.00" type="text" class="form-control boxed">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Marca</label>
-                                            <input id="marca" name="marca" value="" type="text" class="form-control boxed">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Fecha de vencimiento</label>
-                                            <input id="vencimiento" name="vencimiento" value="" placeholder="DD/MM/YYYY" type="date" class="form-control boxed">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Stock</label>
-                                            <input id="stock" name="stock" value="" placeholder="0" type="number" class="form-control boxed" min="0" step="1">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="control-label">Código de barras</label>
-                                            <input id="codigoBarras"name="codigoBarras" value="" type="text" class="form-control boxed">
-                                        </div>
+                                        <br>
 
                                         <button type="submit" class="btn btn-primary btn-lg btn-block">Registrar</button>
                                         
